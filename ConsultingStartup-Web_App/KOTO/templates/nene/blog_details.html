@@ -26,17 +26,17 @@
 
             <div class="meta d-flex align-items-center mt-5 mb-5">
                 <div class="d-flex align-items-center">
-                    <i class="bi bi-person"></i> <span class="ps-2">{{ article.author }}</span>
+                    <i class="bi bi-person text-success"></i> <span class="ps-2">{{ article.author }}</span>
                 </div>
 
                 <span class="px-3 text-black-50">/</span>
                 <div class="d-flex align-items-center">
-                    <i class="bi bi-folder2"></i> <span class="ps-2">{{ article.category }}</span>
+                    <i class="bi bi-folder2 text-success"></i> <span class="ps-2">{{ article.category }}</span>
                 </div>
 
                 <span class="px-3 text-black-50">/</span>
                 <div class="d-flex align-items-center">
-                    <i class="bi bi-folder2"></i> <span class="ps-2">{{ article.published_date }}</span>
+                    <i class="bi bi-folder2 text-success"></i> <span class="ps-2">{{ article.published_date }}</span>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
                 {{ article.render_markdown|safe }}
             </div>
 
-            <a href="{% url 'blog' %}" class="btn btn-primary mt-5" mt-5">Retour aux articles</a>
+            <a href="{% url 'blog' %}" class="btn btn-outline-success mt-5" >Retour aux articles</a>
             </div>
         </div>
     </section>

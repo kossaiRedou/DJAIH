@@ -40,8 +40,13 @@
     <!-- Vision Section -->
     <section id="vision" class="vision section">
       <div class="container section-title" data-aos="fade-up">
-          <h2>Notre ADN</h2>
-          <p>Notre vision est d'être à la pointe de l'innovation en combinant intelligence artificielle et analyse stratégique pour offrir des solutions sur mesure aux entreprises.</p>
+        <h2>Notre ADN</h2>
+        <p>
+          Chez DAMN Lex Data Consulting, notre ADN repose sur une conviction forte : 
+          la conformité réglementaire, notamment le RGPD, n'est pas une contrainte mais une véritable opportunité stratégique. 
+          Nous allions expertise juridique, sens de l’éthique et accompagnement humain pour transformer vos obligations légales 
+          en leviers de confiance, de transparence et de performance durable.
+        </p>
       </div>
 
       <div class="container">
@@ -55,7 +60,7 @@
                                   <img src="{{ item.image.url }}" alt="Vision Image" class="img-fluid">
                               </div>
                               <div class="col-md-6">
-                                  <h1 class="text-primary display-4 fw-bold">{{ forloop.counter }}.</h1>
+                                  <h1 class="text-success display-4 fw-bold">{{ forloop.counter }}.</h1>
                                   <h3>{{ item.title }}</h3>
                                   <p>{{ item.description }}</p>
                               </div>
@@ -66,7 +71,7 @@
                       <div class="col-lg-12 d-flex align-items-center mb-4" id="vision-{{ item.order }}">
                           <div class="row w-100">
                               <div class="col-md-6">
-                                  <h1 class="text-primary display-4 fw-bold">{{ forloop.counter }}.</h1>
+                                  <h1 class="text-success display-4 fw-bold">{{ forloop.counter }}.</h1>
                                   <h3>{{ item.title }}</h3>
                                   <p>{{ item.description }}</p>
                               </div>
@@ -90,7 +95,10 @@
     <section id="team" class="team section light-background">
       <div class="container section-title" data-aos="fade-up">
         <h2>Notre Équipe</h2>
-        <p>Une équipe d'experts passionnés, combinant intelligence artificielle et analyse stratégique...</p>
+        <p>
+          Une équipe engagée, menée par Anet Marthe Noélie DJAIH, experte en conformité RGPD, droit des données et gouvernance numérique.  
+          Chaque membre de DAMN Lex Data Consulting partage une vision commune : rendre la conformité plus humaine, accessible et stratégique pour les entreprises.
+        </p>
       </div>
 
       <div class="container">
@@ -121,7 +129,7 @@
                 <div class="member-info">
                   <h4><a href="{% url 'portfolio' employee.slug %}">{{ employee.name }}</a></h4>
                   <span>{{ employee.position }}</span>
-                  <a href="{% url 'portfolio' employee.slug %}" class="btn mt-3 btn-outline-info">Visiter Mon Portfolio</a>
+                  <a href="{% url 'portfolio' employee.slug %}" class="btn mt-3 btn-outline-warning">Visiter Mon Portfolio</a>
                 </div>
 
               </div>
@@ -137,15 +145,18 @@
     <section id="practices" class="practices section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Nos Pratiques</h2>
-        <p>Fodor-Analytics propose des solutions sur-mesure en stratégie, data et digital. Grâce à notre expertise locale et internationale, nous aidons les entreprises à optimiser leur performance, anticiper les tendances et accélérer leur croissance.</p>
-        </div>
+        <p>
+          Nos pratiques reposent sur une approche rigoureuse, accessible et engagée de la conformité.  
+          Nous allions expertise juridique, sens stratégique et pédagogie pour accompagner les entreprises dans la gestion responsable de leurs données personnelles, tout en respectant les exigences du RGPD.
+        </p>
+      </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row justify-content-center">
           {% for practice in practices %}
             <div class="col-lg-6 mb-4">
               <div class="practice-card">
-                <h1 class="practice-number text-primary display-3 fw-bold">
+                <h1 class="practice-number text-success display-3 fw-bold">
                   <span>{{ practice.formatted_number|default:"00" }}.</span>
                 </h1>
                 <h4 class="practice-title">{{ practice.title }}</h4>

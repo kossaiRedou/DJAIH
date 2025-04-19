@@ -33,10 +33,10 @@
 
                 <!-- Service Content -->
                 <div class="col-lg-8" data-aos="fade-left">
-                    <h2 class="mb-3 text-primary">{{ service.title }}</h2>
+                    <h2 class="mb-3 text-success">{{ service.title }}</h2>
                     <p class="text-dark fs-5">{{ service.detailed_description|slice:":300"  }}...</p>
                     <!-- Lien pour défiler vers l'offre en détail -->
-                    <a href="#offre-detail" class="btn btn-outline-primary mt-3">Lire plus</a>
+                    <a href="#offre-detail" class="btn btn-outline-success mt-3">Lire plus</a>
 
                     <!-- Liste des Bénéfices -->
                     {% if service.benefits_list %}
@@ -54,7 +54,7 @@
                     {% if service.target_clients %}
                         <div class="mt-4">
                             <h4 class="fw-bold">Pour qui est ce service ?</h4>
-                            <p class="fs-5"><i class="bi bi-people-fill text-primary"></i> {{ service.target_clients }}</p>
+                            <p class="fs-5"><i class="bi bi-people-fill text-success"></i> {{ service.target_clients }}</p>
                         </div>
                     {% endif %}
 
@@ -62,7 +62,7 @@
 
                     <!-- Call to Action -->
                     <div class="mt-4 d-flex flex-wrap gap-3">
-                        <a href="{% url 'contact' %}" class="btn btn-lg btn-primary shadow-lg px-4 py-2">
+                        <a href="{% url 'contact' %}" class="btn btn-lg btn-outline-success shadow-lg px-4 py-2">
                             <i class="bi bi-envelope"></i> Contactez-nous
                         </a>
                         <a href="{% url 'services' %}" class="btn btn-lg btn-outline-secondary px-4 py-2">
@@ -75,7 +75,7 @@
             <!-- Row 2 : Description avec gestion des longues descriptions -->
             <div id="offre-detail" class="row mt-5">
                 <div class="col-12" data-aos="fade-up">
-                    <h3 class="fw-bold text-primary">L'offre en détail</h3>
+                    <h3 class="fw-bold text-success">L'offre en détail</h3>
                     <p class="text-dark fs-5 short-desc">
                         {{ service.detailed_description}}
                     </p>
@@ -85,7 +85,7 @@
                 </div>
                 <!-- Call to Action -->
                 <div class="mt-4 d-flex flex-wrap gap-3">
-                    <a href="{% url 'contact' %}" class="btn btn-lg btn-primary shadow-lg px-4 py-2">
+                    <a href="{% url 'contact' %}" class="btn btn-lg btn-outline-success shadow-lg px-4 py-2">
                         <i class="bi bi-envelope"></i> Contactez-nous
                     </a>
                     <a href="{% url 'services' %}" class="btn btn-lg btn-outline-secondary px-4 py-2">
@@ -111,7 +111,7 @@
                             <p class="text-muted fs-6">"{{ testimonial.feedback }}"</p>
                             <h5 class="fw-bold">{{ testimonial.name }}</h5>
                             {% if testimonial.company %}
-                                <p class="text-primary">{{ testimonial.company }}</p>
+                                <p class="text-success">{{ testimonial.company }}</p>
                             {% endif %}
                             <p class="text-secondary fst-italic">Poste: Consultant Senior</p>
                         </div>
@@ -121,10 +121,10 @@
             
             <!-- Boutons de navigation avec icônes visibles sur mobile -->
             <button class="carousel-control-prev custom-nav" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-                <i class="bi bi-chevron-left text-primary fs-2"></i>
+                <i class="bi bi-chevron-left text-success fs-2"></i>
             </button>
             <button class="carousel-control-next custom-nav" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-                <i class="bi bi-chevron-right text-primary fs-2"></i>
+                <i class="bi bi-chevron-right text-success fs-2"></i>
             </button>
         </div>
     </section>

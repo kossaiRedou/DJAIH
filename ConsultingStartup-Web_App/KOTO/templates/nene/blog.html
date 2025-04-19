@@ -44,11 +44,11 @@
 
                 <div class="meta d-flex align-items-center">
                   <div class="d-flex align-items-center">
-                    <i class="bi bi-person"></i> <span class="ps-2"> {{ article.author }} </span>
+                    <i class="bi bi-person  text-success"></i> <span class="ps-2"> {{ article.author }} </span>
                   </div>
                   <span class="px-3 text-black-50">/</span>
                   <div class="d-flex align-items-center">
-                    <i class="bi bi-folder2"></i> <span class="ps-2">{{ article.category }}</span>
+                    <i class="bi bi-folder2 text-success"></i> <span class="ps-2">{{ article.category }}</span>
                   </div>
                 </div>
 
@@ -58,7 +58,7 @@
 
                 <hr>
 
-                <a href="{% url 'blog_detail' slug=article.slug %}" class="readmore stretched-link"><span>Lire Plus</span><i class="bi bi-arrow-right"></i></a>
+                <a href="{% url 'blog_detail' slug=article.slug %}" class="readmore stretched-link"><span>Lire Plus</span><i class="bi bi-arrow-right  text-success"></i></a>
 
               </div>
 

@@ -50,6 +50,11 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ("name", "email", "subject")  # Barre de recherche
     list_filter = ("created_at",)  # Filtres sur la date
     ordering = ("-created_at",)  # Tri par date décroissante
+    
+    # --- lecture‑seule pour tous les staff non‑superuser
+    def has_add_permission   (self, request): return False
+    def has_change_permission(self, request, obj=None): return False
+    def has_delete_permission(self, request, obj=None): return False
 
 
 
@@ -103,33 +108,83 @@ class CertificationInline(admin.TabularInline):
 
 
 
-
+#===================================================================================
 # Mise à jour de l'admin Employee pour inclure les certifications
+# ---------- EmployeeAdmin ---------- #
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ("name", "position", "email", "phone", "location", "show_photo", "display_soft_skills")
+    # --- affichage liste --------------------------------------------------
+    list_display = (
+        "name", "position", "email", "phone",
+        "location", "show_photo", "display_soft_skills"
+    )
+    search_fields  = ("name", "email", "position", "location", "softSkills__name")
+    list_filter    = ("position", "location", "softSkills")
     prepopulated_fields = {"slug": ("name",)}
-    search_fields = ("name", "email", "position", "location", "softSkills__name")
-    list_filter = ("position", "location", "softSkills")
 
+    # --- fieldsets --------------------------------------------------------
     fieldsets = (
-        ("👤 Informations Personnelles", {
-            "fields": ("name", "slug", "email", "phone", "linkedin", "gitHub", "medium", "position", "photo", "cv", "location", "about", "softSkills"),
+        ("👤 Informations personnelles", {
+            "fields": (
+                "name", "slug", "user",   # <-- lien vers User (visible super‑admin seulement)
+                "email", "phone",
+                "linkedin", "gitHub", "medium",
+                "position", "photo", "cv",
+                "location", "about", "softSkills"
+            ),
         }),
     )
-
     filter_horizontal = ("softSkills",)
-    inlines = [EducationInline, ExperienceInline, ProjectInline, CertificationInline]  # Ajout des certifications ici !
 
+    # --- inlines ----------------------------------------------------------
+    inlines = [EducationInline, ExperienceInline, ProjectInline, CertificationInline]
+
+    # --- méthodes utilitaires pour la liste ------------------------------
     def show_photo(self, obj):
         if obj.photo:
-            return mark_safe(f'<img src="{obj.photo.url}" width="50" height="50" style="border-radius:50%;" />')
+            return mark_safe(
+                f'<img src="{obj.photo.url}" width="50" height="50" style="border-radius:50%;" />'
+            )
         return "No Image"
     show_photo.short_description = "Photo"
 
     def display_soft_skills(self, obj):
-        return ", ".join([skill.name for skill in obj.softSkills.all()])
+        return ", ".join(skill.name for skill in obj.softSkills.all())
     display_soft_skills.short_description = "Soft Skills"
+
+    # ---------- Permissions & filtrage par utilisateur -------------------
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+    def has_view_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return obj is None or (obj and obj.user == request.user)
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        return obj and obj.user == request.user
+
+    # Bloque l’ajout et la suppression pour les staffs
+    def has_add_permission(self, request):
+        return request.user.is_superuser
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    # Masque le champ `user` pour les comptes non‑superuser
+    def get_readonly_fields(self, request, obj=None):
+        base = super().get_readonly_fields(request, obj)
+        if not request.user.is_superuser:
+            return base + ("user",)
+        return base
+
+    
+    
 
 
 @admin.register(Technology)

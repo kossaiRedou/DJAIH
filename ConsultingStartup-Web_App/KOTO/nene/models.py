@@ -7,7 +7,7 @@ import markdown
 import itertools
 from django.utils.timezone import now
 import markdown
-
+from django.contrib.auth.models import User
 
 
 
@@ -77,6 +77,15 @@ class SoftSkills(models.Model):
 
 
 class Employee(models.Model):
+    
+     # ← assure‑toi d’avoir bien ceci
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="employee_profile"
+    )
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True, null=True)
     email = models.EmailField(unique=True, null=True)
