@@ -1,0 +1,292 @@
+{% extends "nene/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+  <!-- Page Title -->
+  <div class="page-title accent-background">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">Portfolio</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li class="current">Portfolio</li>
+        </ol>
+      </nav>
+    </div>
+  </div><!-- End Page Title -->
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="portfolio section">
+    <div class="container">
+      <div class="row">
+
+
+        <!-- Colonne de gauche : Profil -->
+        <div class="col-lg-3 d-flex flex-column align-items-start text-start border-end pe-4">
+
+          <!-- Photo de profil -->
+          {% if employee.photo %}
+              <img src="{{ employee.photo.url }}" class="img-fluid rounded-circle mb-3"
+                  style="width: 120px; height: 120px; object-fit: cover;" alt="{{ employee.name }}">
+          {% else %}
+              <img src="{% static 'nene/img/profil_defaut.png' %}" class="img-fluid rounded-circle mb-3"
+                  style="width: 120px; height: 120px; object-fit: cover;" alt="Photo de profil">
+          {% endif %}
+
+          <!-- Nom et poste -->
+          <h2 class="fw-bold">{{ employee.name }}</h2>
+          <p class="text-muted">{{ employee.position }}</p>
+          <p class="text-muted small"><i class="bi bi-geo-alt"></i> {{ employee.location|default:"Non précisé" }}</p>
+
+          <!-- Icônes des réseaux sociaux -->
+          <div class="d-flex gap-3 my-2">
+              {% if employee.linkedin %}
+                  <a href="{{ employee.linkedin }}" target="_blank" class="text-primary"><i class="bi bi-linkedin fs-4"></i></a>
+              {% endif %}
+              {% if employee.github %}
+                  <a href="{{ employee.github }}" target="_blank" class="text-primary"><i class="bi bi-github fs-4"></i></a>
+              {% endif %}
+              {% if employee.website %}
+                  <a href="{{ employee.website }}" target="_blank" class="text-primary"><i class="bi bi-globe fs-4"></i></a>
+              {% endif %}
+              <a href="mailto:{{ employee.email }}" class="text-primary"><i class="bi bi-envelope fs-4"></i></a>
+          </div>
+
+          <!-- À propos -->
+
+          <div class="d-flex mt-4 flex-wrap gap-2">
+            <h5 class="fw-bold ">About</h5>
+            <p class="mt-1">{{ employee.about }}</p>
+          </div>
+
+          <!-- Soft Skills -->
+          <h5 class="fw-bold mt-4">Soft Skills</h5>
+          <div class="d-flex flex-wrap gap-2">
+              {% for skill in soft_skills %}
+                  <span class="badge bg-secondary text-white">{{ skill.name }}</span>
+              {% empty %}
+                  <p class="text-muted">Aucune compétence renseignée</p>
+              {% endfor %}
+          </div>
+
+          <!-- Technical Skills -->
+          <h5 class="fw-bold mt-4">Technical Skills</h5>
+          <div class="d-flex flex-wrap gap-2">
+              {% for skill in technical_skills %}
+                  <span class="badge bg-primary text-white">{{ skill.name }}</span>
+              {% empty %}
+                  <p class="text-muted">Aucune compétence renseignée</p>
+              {% endfor %}
+          </div>
+
+        </div>
+
+
+
+
+
+        <!-- Colonne de droite : Projets et Experiences et éducations -->
+        <div class="col-lg-9 ps-4">
+
+            <!-- Navigation des sections -->
+            <ul class="nav nav-pills mt-5 mb-5" id="pills-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-projects-tab" data-bs-toggle="pill" data-bs-target="#pills-projects" type="button" role="tab">Projets</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience" type="button" role="tab">Expériences</button>
+              </li>
+
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-certification-tab" data-bs-toggle="pill" data-bs-target="#pills-certification" type="button" role="tab">
+                    Certifications
+                </button>
+              </li>
+
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-education-tab" data-bs-toggle="pill" data-bs-target="#pills-education" type="button" role="tab">Formations</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-education-tab" data-bs-toggle="pill" data-bs-target="#pills-education" type="button" role="tab">
+                    {% if employee.cv %}
+                        <a href="{{ employee.cv.url }}" download class="text-decoration-none">
+                            <i class="bi bi-download me-2"></i> Mon CV
+                        </a>
+                    {% endif %}
+                </button>
+              </li>
+
+            </ul>
+
+
+          <div class="tab-content" id="pills-tabContent">
+
+            <!-- Section Projets -->
+            <div class="tab-pane fade show active mt-4" id="pills-projects" role="tabpanel">
+              <div class="row gy-4 isotope-container mt-4" data-aos="fade-up" data-aos-delay="200">
+                  {% for project in projects %}
+                    <div class="col-md-6 portfolio-item">
+                        <!-- Image du projet -->
+                        {% if project.image %}
+                            <img src="{{ project.image.url }}" class="img-fluid" alt="{{ project.title }}">
+                        {% else %}
+                            <img src="{% static 'nene/img/portfolio/GABITHEX.png' %}" class="img-fluid" alt="Projet par défaut">
+                        {% endif %}
+
+                        <!-- Infos du projet -->
+                        <div class="meta d-flex mt-2 align-items-center justify-content-center">
+                            <h3 class="post-title align-items-center justify-content-center">{{ project.title }}</h3>
+                        </div>
+
+                        <!-- Technologies utilisées -->
+                        <div class="meta d-flex mb-2 align-items-center justify-content-center">
+                          <div class="d-flex align-items-left text-primary">
+                            {% for tech in project.technologies.all|slice:":3" %}
+                                <i class="bi bi-folder2"></i> <span class="ps-2">{{ tech.name }}</span>
+
+                                {% if not forloop.last %}
+                                    <span class="px-3 text-black-50">/</span>
+                                {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="portfolio-info">
+                            <h4>{{ project.title }}</h4>
+                            <p>{{ project.render_markdown|truncatewords:30|safe }}...</p>
+                            <div class="mt-2">
+                                <a href="{% url 'project_detail' slug=project.slug %}" class="btn btn-outline-primary btn-sm">Learn More</a>
+                                {% if project.demo %}
+                                  <a href="{{ project.demo }}" class="btn btn-success me-2" target="_blank">
+                                    <i class="bi bi-play-circle"></i> Démo
+                                  </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+
+              </div>
+            </div><!-- Fin section projets -->
+
+            <!-- Section Expériences -->
+            <div class="tab-pane fade" id="pills-experience" role="tabpanel">
+              <div class="row gy-4">
+                  {% for experience in experiences %}
+                  <div class="col-12 mt-4 p-3 border rounded shadow-sm bg-light">
+                      <!-- Dates -->
+                      <p class="text-muted">{{ experience.start_date|date:"M Y" }} - {% if experience.end_date %}{{ experience.end_date|date:"M Y" }}{% else %}Présent{% endif %}</p>
+
+                      <!-- Titre du poste -->
+                      <h6 class="fw-bold text-primary">{{ experience.position }}</h6>
+
+                      <!-- Entreprise -->
+                      <h7 class="fw-bold"> <i class="bi bi-geo-alt"></i> {{ experience.company }} - {{ experience.city }}</h7>
+
+                      <!-- Description -->
+                      <p class="text-muted bordered">{{ experience.description|truncatewords:30 }}</p>
+
+                      <!-- Technologies utilisées -->
+                      <div class="d-flex flex-wrap">
+                          {% for tech in experience.technologies.all %}
+                              <span class="badge bg-secondary me-2">{{ tech.name }}</span>
+                          {% endfor %}
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+            </div>
+
+
+            <!-- Section Éducation -->
+            <div class="tab-pane fade" id="pills-education" role="tabpanel">
+              <div class="row gy-4">
+                  {% for education in educations %}
+                  <div class="col-12 border rounded shadow-sm bg-light">
+                      <!-- Dates -->
+                      <p class="text-muted">{{ education.start_date|date:"Y" }} - {% if education.end_date %}{{ education.end_date|date:"Y" }}{% else %}Présent{% endif %}</p>
+
+                      <!-- Diplôme et spécialisation -->
+                      <h6 class="fw-bold">{{ education.degree }}, {{ education.specialty }}</h6>
+
+                      <!-- Université et localisation -->
+                      <p class="text-muted"><i class="bi bi-geo-alt"></i> {{ education.university }} - {{ education.city }}, {{ education.country }}</p>
+
+                      <!-- Description -->
+                      <p>{{ education.description|truncatewords:25 }}</p>
+                  </div>
+                  {% endfor %}
+              </div>
+            </div>
+
+
+            <!-- Section Certifications -->
+            <div class="tab-pane fade" id="pills-certification" role="tabpanel">
+              <div class="row gy-4">
+                  {% for certification in certifications %}
+                  <div class="col-12 border rounded shadow-sm bg-light p-3 d-flex justify-content-between align-items-center">
+
+                      <!-- Infos de la certification -->
+                      <div>
+                          <h6 class="fw-bold">{{ certification.title }}</h6>
+                          <p class="text-muted mb-1">
+                              <i class="bi bi-calendar-event"></i> {{ certification.date|date:"M Y" }}
+                              - <i class="bi bi-award"></i> {{ certification.platform }}
+                          </p>
+
+                          <!-- Compétences acquises -->
+                          {% if certification.skills.all %}
+                          <p class="mb-1"><strong>Compétences :</strong></p>
+                          <div class="d-flex flex-wrap">
+                              {% for skill in certification.skills.all %}
+                              <span class="badge text-secondary me-2">{{ skill.name }}</span>
+                              {% endfor %}
+                          </div>
+                          {% endif %}
+
+
+
+                          <!-- Lien vers la certification -->
+                          {% if certification.link %}
+                          <div class="mt-2">
+                              <a href="{{ certification.link }}" class="btn btn-outline-success btn-sm" target="_blank">
+                                  Voir la certification <i class="bi bi-box-arrow-up-right"></i>
+                              </a>
+                          </div>
+                          {% endif %}
+                      </div>
+
+                      <!-- Image de la certification à droite -->
+                      {% if certification.image %}
+                      <div class="ms-3">
+                          <img src="{{ certification.image.url }}" alt="{{ certification.title }}" class="img-fluid rounded" style="max-width: 120px;">
+                      </div>
+                      {% endif %}
+                  </div>
+                  {% empty %}
+                  <p class="text-muted">Aucune certification disponible.</p>
+                  {% endfor %}
+              </div>
+            </div>
+
+
+
+
+
+
+          </div>
+
+
+
+        </div><!-- Fin colonne droite -->
+
+
+
+      </div><!-- Fin row principale -->
+    </div><!-- Fin container -->
+  </section><!-- Fin Portfolio Section -->
+
+{% endblock %}

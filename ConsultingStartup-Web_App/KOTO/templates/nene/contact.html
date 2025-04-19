@@ -1,0 +1,113 @@
+{% extends "nene/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Title -->
+    <div class="page-title accent-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Contact</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="current">Contact</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section mt-5">
+
+      <div class="container mt-5 mb-5" data-aos="fade">
+
+        <div class="row gy-5 gx-lg-5 mt-5 mb-5">
+
+          <div class="col-lg-4 mt-5">
+
+            <div class="info bt-5">
+              <h3>Contactez-nous</h3>
+              <p>FODOR vous accompagne avec des solutions innovantes en intelligence de marché et stratégie de données.</p>
+
+              <div class="info-item d-flex">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h4>Adresse :</h4>
+                  <p>10 Parvis de la Défense, 92800 Puteaux, France</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h4>Email :</h4>
+                  <p>contact@fodor360.fr</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-phone flex-shrink-0"></i>
+                <div>
+                  <h4>Téléphone :</h4>
+                  <p>+33 1 23 45 67 89</p>
+                </div>
+              </div><!-- End Info Item -->
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8">
+            <form method="POST" >
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        {{ form.name }}
+                    </div>
+                    <div class="col-md-6 form-group mt-3 mt-md-0">
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    {{ form.subject }}
+                </div>
+                <div class="form-group mt-3">
+                    {{ form.message }}
+                </div>
+                <div class="my-3">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Envoyer</button>
+                </div>
+            </form>
+        </div>
+        <!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+
+
+
+      <div class="mb-5 d-flex justify-content-center mt-5 mt-5">
+        <iframe 
+          style="width: 70%; height: 400px;" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.594821782229!2d2.260438776530486!3d48.827393671371465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6716f2f030d9d%3A0xf769e05b3281f45!2s13%20Rue%20Camille%20Desmoulins%2C%2092130%20Issy-les-Moulineaux%2C%20France!5e0!3m2!1sfr!2sfr!4v1708000000000"
+          
+          frameborder="0" 
+          allowfullscreen>
+        </iframe>
+      </div><!-- End Google Maps -->
+
+    </section><!-- /Contact Section -->
+
+{% endblock %}

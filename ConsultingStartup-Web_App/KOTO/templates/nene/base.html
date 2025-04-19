@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>DAMN  Lex Data Consulting</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="DAMN - Consulting">
+    <meta property="og:description" content="Votre partenaire pour une gestion de données conforme et sécurisée">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'nene/img/DAMN_logo.png' %}">
+    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}">
+    <meta property="og:type" content="website">
+
+
+  <!-- Favicons -->
+  <link href="{% static 'nene/img/DAMN_logo.png' %}" rel="icon">
+  <link href="{% static 'nene/img/DAMN_logo.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+ <!-- Vendor CSS Files -->
+ <link href="{% static 'nene/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+ <link href="{% static 'nene/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+ <link href="{% static 'nene/vendor/aos/aos.css' %}" rel="stylesheet">
+ <link href="{% static 'nene/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+ <link href="{% static 'nene/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+ <!-- Main CSS File -->
+ <link href="{% static 'nene/css/main.css' %}?v={{ timestamp }}" type="text/css" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+
+
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center">
+
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'nene/img/DAMN_logo.png' %}"alt="" width="70" height="300">
+        <h1 class="sitename">DAMN <span>Lex</span> Data Consulting</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'index' %}" class="active">Accueil</a></li>
+          <li><a href="{% url 'services' %}">Services</a></li>
+          <li class="dropdown"><a href="{% url 'about' %}"><span>A Propos</span> </a></li>
+          <li><a href="{% url 'portfolio' slug='anet_marthe_noelie_djaih' %}">Portfolio</a></li>
+          <li><a href="{% url 'blog' %}">Blog</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li><a href="{% url 'admin:index' %}"><i class="bi bi-person text-primary"> Compte</i></a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <!--div class="header-social-links">
+        <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      </div-->
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    {% block content %}
+
+    <!--contenue des pages-->
+
+    {%endblock%}
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index' %}" class="logo d-flex align-items-center">
+            <span class="sitename">DAMN</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>16 rue Simone Veil</p>
+            <p>Ile-de-france, Gargenville 78400</p>
+            <p><strong>Téléphone :</strong> <a href="tel:+33760463800">07 60 46 38 00</a></p>
+            <p><strong>Email :</strong> <a href="mailto:contact@damnlexdata.fr">contact@damnlexdata.fr</a></p>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="{% url 'index' %}" >Accueil</a></li>
+            <li><a href="{% url 'about' %}">A Propos</a></li>
+            <li><a href="{% url 'services' %}">Services</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Audit RGPD & Diagnostic</a></li>
+            <li><a href="#">Mise en conformité RGPD</a></li>
+            <li><a href="#">DPO Externalisé</a></li>
+            <li><a href="{% url 'services' %}">Voir Plus...</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-3 footer-links">
+          <li class="mb-4">
+            <a href="#"><i class="bi bi-twitter-x"></i> Twitter</a>
+          </li>
+          <li class="mb-4">
+            <a href="#"><i class="bi bi-facebook"></i> Facebook</a>
+          </li>
+          <li class="mb-4">
+            <a href="#"><i class="bi bi-instagram"></i> Instagram</a>
+          </li>
+          <li class="mb-3">
+            <a href="https://linkedin.com/in/21amn-djaih" target="_blank">
+              <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+          </li>                   
+        </div-->
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">DAMN ANALYTICS</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+
+        Designed by <a href="https://www.fodor360.fr/portfolio/aliou_diallo/" >GABITHEX</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+   <!-- Vendor JS Files -->
+   <script src="{% static 'nene/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+   <script src="{% static 'nene/vendor/php-email-form/validate.js' %}"></script>
+   <script src="{% static 'nene/vendor/aos/aos.js' %}"></script>
+   <script src="{% static 'nene/vendor/glightbox/js/glightbox.min.js' %}"></script>
+   <script src="{% static 'nene/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+   <script src="{% static 'nene/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+   <script src="{% static 'nene/vendor/waypoints/noframework.waypoints.js' %}"></script>
+   <script src="{% static 'nene/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+   <!-- Main JS File -->
+   <script src="{% static 'nene/js/main.js' %}"></script>
+
+<script type="text/javascript" async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+{% extends "nene/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Title -->
+    <div class="page-title accent-background">
+        <div class="container d-lg-flex justify-content-between align-items-center">
+            <h1 class="mb-2 mb-lg-0" data-aos="fade-right">{{ service.title }}</h1>
+            <nav class="breadcrumbs" data-aos="fade-left">
+                <ol>
+                    <li><a href="{% url 'index' %}">Accueil</a></li>
+                    <li><a href="{% url 'services' %}">Services</a></li>
+                    <li class="current">{{ service.title }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div><!-- End Page Title -->
+
+    <!-- Service Detail Section -->
+    <section id="service-detail" class="section light-background">
+        <div class="container">
+            <div class="row gy-5 align-items-center">
+                
+                <!-- Image du service avec effet flottant -->
+                {% if service.image %}
+                    <div class="col-lg-4" data-aos="zoom-in">
+                        <div class="service-image-wrapper floating">
+                            <img src="{{ service.image.url }}" alt="{{ service.title }}" class="img-fluid rounded shadow-lg service-image">
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Service Content -->
+                <div class="col-lg-8" data-aos="fade-left">
+                    <h2 class="mb-3 text-primary">{{ service.title }}</h2>
+                    <p class="text-dark fs-5">{{ service.detailed_description|slice:":300"  }}...</p>
+                    <!-- Lien pour défiler vers l'offre en détail -->
+                    <a href="#offre-detail" class="btn btn-outline-primary mt-3">Lire plus</a>
+
+                    <!-- Liste des Bénéfices -->
+                    {% if service.benefits_list %}
+                        <div class="mt-4">
+                            <h4 class="fw-bold">Pourquoi choisir ce service ?</h4>
+                            <ul class="list-unstyled">
+                                {% for benefit in service.benefits_list %}
+                                    <li class="fs-5"><i class="bi bi-check-circle-fill text-success"></i> {{ benefit }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <!-- Public Cible -->
+                    {% if service.target_clients %}
+                        <div class="mt-4">
+                            <h4 class="fw-bold">Pour qui est ce service ?</h4>
+                            <p class="fs-5"><i class="bi bi-people-fill text-primary"></i> {{ service.target_clients }}</p>
+                        </div>
+                    {% endif %}
+
+                    <p class="text-secondary mt-3"><i class="bi bi-calendar"></i> Ajouté le : {{ service.created_at|date:"d M Y" }}</p>
+
+                    <!-- Call to Action -->
+                    <div class="mt-4 d-flex flex-wrap gap-3">
+                        <a href="{% url 'contact' %}" class="btn btn-lg btn-primary shadow-lg px-4 py-2">
+                            <i class="bi bi-envelope"></i> Contactez-nous
+                        </a>
+                        <a href="{% url 'services' %}" class="btn btn-lg btn-outline-secondary px-4 py-2">
+                            <i class="bi bi-arrow-left"></i> Retour aux services
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 : Description avec gestion des longues descriptions -->
+            <div id="offre-detail" class="row mt-5">
+                <div class="col-12" data-aos="fade-up">
+                    <h3 class="fw-bold text-primary">L'offre en détail</h3>
+                    <p class="text-dark fs-5 short-desc">
+                        {{ service.detailed_description}}
+                    </p>
+                    <p class="text-dark fs-5 full-desc d-none">
+                        {{ service.detailed_description }}
+                    </p>
+                </div>
+                <!-- Call to Action -->
+                <div class="mt-4 d-flex flex-wrap gap-3">
+                    <a href="{% url 'contact' %}" class="btn btn-lg btn-primary shadow-lg px-4 py-2">
+                        <i class="bi bi-envelope"></i> Contactez-nous
+                    </a>
+                    <a href="{% url 'services' %}" class="btn btn-lg btn-outline-secondary px-4 py-2">
+                        <i class="bi bi-arrow-left"></i> Retour aux services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section><!-- /Service Detail Section -->
+
+    <!-- Témoignages Dynamique -->
+    <section class="container mt-5">
+        <div class="text-center" data-aos="fade-up">
+            <h2 class="fw-bold">Ce que disent nos clients</h2>
+            <p class="text-muted">Quelques retours de ceux qui nous ont fait confiance</p>
+        </div>
+        
+        <div id="testimonialCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for testimonial in testimonials %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="testimonial-card text-center floating">
+                            <p class="text-muted fs-6">"{{ testimonial.feedback }}"</p>
+                            <h5 class="fw-bold">{{ testimonial.name }}</h5>
+                            {% if testimonial.company %}
+                                <p class="text-primary">{{ testimonial.company }}</p>
+                            {% endif %}
+                            <p class="text-secondary fst-italic">Poste: Consultant Senior</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Boutons de navigation avec icônes visibles sur mobile -->
+            <button class="carousel-control-prev custom-nav" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <i class="bi bi-chevron-left text-primary fs-2"></i>
+            </button>
+            <button class="carousel-control-next custom-nav" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <i class="bi bi-chevron-right text-primary fs-2"></i>
+            </button>
+        </div>
+    </section>
+
+{% endblock %}

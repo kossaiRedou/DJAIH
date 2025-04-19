@@ -1,0 +1,71 @@
+{% extends "nene/base.html" %}
+
+{%load static%}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section id="hero" class="hero section dark-background">
+  <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="60000">
+  
+    <!-- Dynamically generated carousel items -->
+    {% for item in hero_carousel %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ item.image.url }}" alt="">
+        <div class="container">
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.description|slice:":500" }}{% if item.description|length > 500 %}...{% endif %}</p>
+          <a href="{% url 'about' %}#vision-{{ item.order }}" class="btn-get-started">Lire Plus</a>
+        </div>
+      </div><!-- End Carousel Item -->
+    {% endfor %}
+  
+    <!-- Carousel controls -->
+    <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+    </a>
+
+    <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+    </a>
+
+    <ol class="carousel-indicators"></ol>
+  </div>
+</section><!-- /Hero Section -->
+
+
+
+    <!-- About Section -->
+    <section id="about-section">
+      <div class="loading text-center">Chargement des données...</div> <!-- Message de chargement -->
+    </section>
+
+    <!-- jQuery (nécessaire pour AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+          $("#about-section").load("{% url 'aboutSection' %}"); // Charge dynamiquement la section Clients
+      });
+    </script>
+    <!-- /About Section -->
+
+
+    <!-- Clients Section -->
+    <section id="clients-section">
+      <div class="loading text-center">Chargement des clients...</div> <!-- Message de chargement -->
+    </section>
+
+    <!-- jQuery (nécessaire pour AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+          $("#clients-section").load("{% url 'customers' %}"); // Charge dynamiquement la section Clients
+      });
+    </script>
+
+    <!-- End Clients Section-->
+
+
+    {% endblock %}

@@ -1,0 +1,34 @@
+{% load static%}
+
+
+<!-- About Section -->
+<section id="about" class="about section">
+  <div class="container">
+    <div class="row position-relative">
+      <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="{{ about.image.url|default:'{% static "nene/img/about.jpg" %}' }}" class="img-fluid" alt="About Image">
+      </div>
+
+      <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+        <h2 class="inner-title">{{ about.title|default:"Notre vision de la conformité" }}</h2>
+        <div class="our-story">
+          <h4>{{ about.year|default:"2024" }}</h4>
+          <h3>{{ about.history_title|default:"Pourquoi DAMN Lex Data Consulting ?" }}</h3>
+          <p>{{ about.history_text|default:"DAMN Lex Data Consulting est une structure indépendante fondée par Anet Marthe Noélie DJAIH, juriste spécialisée en conformité RGPD et en protection des données personnelles. Notre objectif est clair : transformer les obligations légales en véritables leviers de performance, de transparence et de confiance. Nous accompagnons les TPE, PME, startups et collectivités en combinant expertise juridique, approche humaine et stratégie métier." }}</p>
+          <ul>
+            <li><i class="bi bi-check-circle"></i> <span>Clarté : vulgariser les notions complexes du RGPD</span></li>
+            <li><i class="bi bi-check-circle"></i> <span>Sécurité : garantir la protection des données sensibles</span></li>
+            <li><i class="bi bi-check-circle"></i> <span>Performance : faire de la conformité un avantage stratégique</span></li>
+          </ul>
+          <p>{{ about.mission|default:"Nous croyons en une conformité positive et humaine. Notre mission est d’accompagner chaque organisation dans la construction d’une gouvernance des données saine, éthique et adaptée à ses enjeux. Avec DAMN Lex Data Consulting, avancez sereinement, dans le respect des normes, en toute confiance." }}</p>
+          <div class="watch-video d-flex align-items-center position-relative">
+            <i class="bi bi-play-circle"></i>
+            <a href="{{ about.video_url|default:'https://www.youtube.com/watch?v=Y7f98aduVJ8' }}" class="glightbox stretched-link">
+              Écouter les mots de <span>Anet Marthe Noélie DJAIH</span> – Fondatrice
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- /About Section -->

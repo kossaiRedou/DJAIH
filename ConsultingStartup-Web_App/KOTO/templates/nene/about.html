@@ -1,0 +1,177 @@
+{% extends "nene/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <!-- Page Title -->
+    <div class="page-title accent-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">About</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="current">About</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    {% load static %}
+
+    <!-- About Section -->
+    <section id="about-section">
+      <div class="loading text-center">Chargement des données...</div> <!-- Message de chargement -->
+    </section>
+
+    <!-- jQuery (nécessaire pour AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+          $("#about-section").load("{% url 'aboutSection' %}"); // Charge dynamiquement la section Clients
+      });
+    </script>
+    <!-- /About Section -->
+
+
+
+
+    <!-- Vision Section -->
+    <section id="vision" class="vision section">
+      <div class="container section-title" data-aos="fade-up">
+          <h2>Notre ADN</h2>
+          <p>Notre vision est d'être à la pointe de l'innovation en combinant intelligence artificielle et analyse stratégique pour offrir des solutions sur mesure aux entreprises.</p>
+      </div>
+
+      <div class="container">
+          <div class="row">
+              {% for item in hero_carousel %}
+                  {% if forloop.counter|divisibleby:2 %}
+                      <!-- L'image à droite et la description à gauche -->
+                      <div class="col-lg-12 d-flex align-items-center mb-4" id="vision-{{ item.order }}">
+                          <div class="row w-100">
+                              <div class="col-md-6">
+                                  <img src="{{ item.image.url }}" alt="Vision Image" class="img-fluid">
+                              </div>
+                              <div class="col-md-6">
+                                  <h1 class="text-primary display-4 fw-bold">{{ forloop.counter }}.</h1>
+                                  <h3>{{ item.title }}</h3>
+                                  <p>{{ item.description }}</p>
+                              </div>
+                          </div>
+                      </div>
+                  {% else %}
+                      <!-- L'image à gauche et la description à droite -->
+                      <div class="col-lg-12 d-flex align-items-center mb-4" id="vision-{{ item.order }}">
+                          <div class="row w-100">
+                              <div class="col-md-6">
+                                  <h1 class="text-primary display-4 fw-bold">{{ forloop.counter }}.</h1>
+                                  <h3>{{ item.title }}</h3>
+                                  <p>{{ item.description }}</p>
+                              </div>
+                              <div class="col-md-6">
+                                  <img src="{{ item.image.url }}" alt="Vision Image" class="img-fluid">
+                              </div>
+                          </div>
+                      </div>
+                  {% endif %}
+              {% empty %}
+                  <p>Aucun élément de vision disponible.</p>
+              {% endfor %}
+          </div>
+      </div>
+    </section>
+<!-- End Vision Section -->
+
+
+
+    <!-- Team Section -->
+    <section id="team" class="team section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Notre Équipe</h2>
+        <p>Une équipe d'experts passionnés, combinant intelligence artificielle et analyse stratégique...</p>
+      </div>
+
+      <div class="container">
+        <div class="row justify-content-center gy-4">
+          {% for employee in employees %}
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+              <div class="team-member">
+                <div class="member-img">
+
+                  <a href="{% url 'portfolio' employee.slug %}">
+                    <img src="{% if employee.photo %}{{ employee.photo.url }}{% else %}{% static 'nene/img/profil_defaut.png' %}{% endif %}" class="img-fluid" alt="">
+                  </a>
+
+                  <div class="social">
+                    {% if employee.linkedin %}
+                        <a href="{{ employee.linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+                    {% endif %}
+                    {% if employee.gitHub %}
+                        <a href="{{ employee.gitHub }}" target="_blank"><i class="bi bi-github"></i></a>
+                    {% endif %}
+                    {% if employee.medium %}
+                        <a href="{{ employee.medium }}" target="_blank"><i class="bi bi-medium"></i></a>
+                    {% endif %}
+                  </div>
+
+                </div>
+
+                <div class="member-info">
+                  <h4><a href="{% url 'portfolio' employee.slug %}">{{ employee.name }}</a></h4>
+                  <span>{{ employee.position }}</span>
+                  <a href="{% url 'portfolio' employee.slug %}" class="btn mt-3 btn-outline-info">Visiter Mon Portfolio</a>
+                </div>
+
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End Team Section -->
+
+
+
+    <!-- Nos Pratiques Section -->
+    <section id="practices" class="practices section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Nos Pratiques</h2>
+        <p>Fodor-Analytics propose des solutions sur-mesure en stratégie, data et digital. Grâce à notre expertise locale et internationale, nous aidons les entreprises à optimiser leur performance, anticiper les tendances et accélérer leur croissance.</p>
+        </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          {% for practice in practices %}
+            <div class="col-lg-6 mb-4">
+              <div class="practice-card">
+                <h1 class="practice-number text-primary display-3 fw-bold">
+                  <span>{{ practice.formatted_number|default:"00" }}.</span>
+                </h1>
+                <h4 class="practice-title">{{ practice.title }}</h4>
+                <p class="practice-description">{{ practice.description }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <!-- /Nos Pratiques Section -->
+
+
+
+    <!-- Clients Section -->
+    <section id="clients-section">
+      <div class="loading text-center">Chargement des clients...</div> <!-- Message de chargement -->
+    </section>
+
+
+    <script>
+      $(document).ready(function() {
+          $("#clients-section").load("{% url 'customers' %}"); // Charge dynamiquement la section Clients
+      });
+    </script>
+
+    <!-- End Clients Section-->
+
+{% endblock %}
